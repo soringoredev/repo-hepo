@@ -17,11 +17,19 @@
     <hr>
 
     <ul class="list-group mt-3" th:if="${notes.size() > 0}" th:each="note : ${notes}">
-        <li class="list-group-item d-flex justify-content-between">
+        <li class="list-group-item d-flex justify-content-between align-items-center">
             <span th:text="${note.content}"></span>
-            <small th:text="${#temporals.format(note.createdAt, 'yyyy-MM-dd HH:mm')}"></small>
+            <div class="d-flex align-items-center">
+                <small class="me-3 text-muted" th:text="${#temporals.format(note.createdAt, 'yyyy-MM-dd HH:mm')}"></small>
+                <a href="#" class="text-secondary text-decoration-none"
+                   th:attr="data-note-id=${note.id}, data-client-id=${clientId}"
+                   onclick="deleteNote(this)">
+                    &times;
+                </a>
+            </div>
         </li>
     </ul>
+
 
     <div th:if="${notes.size() == 0}" class="text-muted mt-3">
         No notes yet.

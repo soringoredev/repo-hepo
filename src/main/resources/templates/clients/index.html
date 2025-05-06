@@ -19,6 +19,32 @@
         }
     </script>
 
+    <script>
+        function deleteNote(link) {
+            const noteId = link.getAttribute("data-note-id");
+            const clientId = link.getAttribute("data-client-id");
+
+            if (!confirm("Delete this note?")) return;
+
+            fetch(`/clients/notes/delete/${noteId}`, {
+                method: 'DELETE'
+            })
+                .then(response => {
+                    if (response.ok) {
+                        // Reîncarcă notițele în modal
+                        fetch(`/clients/notes/fragment?id=${clientId}`)
+                            .then(r => r.text())
+                            .then(html => {
+                                document.getElementById("notes-content").innerHTML = html;
+                            });
+                    } else {
+                        alert("Error deleting note.");
+                    }
+                });
+        }
+    </script>
+
+
     <style>
         #notes-content {
             color: #333; /* sau orice culoare personală */

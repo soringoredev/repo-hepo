@@ -22,4 +22,9 @@ public class NoteService {
     public void saveNote(Note note) {
         noteRepo.save(note);
     }
+
+    public void deleteNoteById(Long id) {
+        noteRepo.deleteById(id);
+    }
+
 }

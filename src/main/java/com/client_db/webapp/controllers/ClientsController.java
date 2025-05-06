@@ -222,5 +222,16 @@ public class ClientsController {
         return "redirect:/clients"; // sau redirect înapoi în modal dacă vrei AJAX
     }
 
+    @DeleteMapping("/notes/delete/{noteId}")
+    @ResponseBody
+    public ResponseEntity<?> deleteNote(@PathVariable Long noteId) {
+        try {
+            noteService.deleteNoteById(noteId);
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error");
+        }
+    }
+
 
 }
