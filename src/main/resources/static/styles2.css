@@ -1,0 +1,60 @@
+body {
+    background: linear-gradient(90deg,  #814f04, #29047e);
+    color: white;
+    height: 100vh;
+    filter: contrast(90%);
+}
+
+.container {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+h1 {
+    color: #007bff;
+    font-weight: bold;
+}
+
+.table {
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.table th {
+    background: #121212;
+    color: white;
+    text-align: center;
+}
+
+.table tbody tr:hover {
+    background: rgba(0, 123, 255, 0.1);
+}
+
+.btn {
+    transition: all 0.1s ease-in-out;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+    transition: all 0.1s ease-in-out;
+}
+
+.btn-danger:hover {
+    background-color: #d9534f;
+    transform: scale(1.05);
+    transition: all 0.1s ease-in-out;
+}
+.bg-dark:hover{
+    background-color: #000000;
+    transform: scale(1.05);
+    transition: all 0.1s ease-in-out;
+
+}
+.btn-success:hover{
+    transform: scale(1.05);
+    transition: all 0.1s ease-in-out;
+}

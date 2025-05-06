@@ -1,0 +1,11 @@
+body {
+    background: linear-gradient(90deg, #814f04, #29047e);
+    color: white;
+    height: 100vh;
+    filter: contrast(90%);
+}
+.btn-primary:hover {
+    background-color: #6610f2;
+    transform: scale(1.1);
+    transition: all 0.1s ease-in-out;
+}

@@ -1,0 +1,31 @@
+<!-- templates/fragments/notes.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<div th:fragment="content">
+    <form th:action="@{/clients/notes/add}" method="post">
+        <input type="hidden" name="clientId" th:value="${clientId}" />
+
+        <div class="mb-3">
+            <label for="noteContent" class="form-label">Write a note:</label>
+            <textarea id="noteContent" class="form-control" name="content" rows="3" required></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-sm">Add Note</button>
+    </form>
+
+    <hr>
+
+    <ul class="list-group mt-3" th:if="${notes.size() > 0}" th:each="note : ${notes}">
+        <li class="list-group-item d-flex justify-content-between">
+            <span th:text="${note.content}"></span>
+            <small th:text="${#temporals.format(note.createdAt, 'yyyy-MM-dd HH:mm')}"></small>
+        </li>
+    </ul>
+
+    <div th:if="${notes.size() == 0}" class="text-muted mt-3">
+        No notes yet.
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,47 @@
+body {
+    background: linear-gradient(90deg,  #814f04, #29047e);
+    color: white;
+    font-family: 'Arial', sans-serif;
+}
+
+/* Bordura roșie pentru câmpurile de input cu erori */
+.is-invalid {
+    border-color: red !important;
+}
+
+.container {
+    max-width: 900px;
+    margin-top: 50px;
+}
+
+h2 {
+    text-align: center;
+    color: #ffffff;
+    font-weight: bold;
+}
+.form-control, .form-select {
+    border-radius: 5px;
+    border: 1px solid #ddd;
+}
+.btn-primary {
+    background-color: #1e5bcb;
+    border: none;
+}
+
+.btn-primary:hover {
+    background-color: #31cb6f;
+    transform: scale(1.1);
+    transition: all 0.1s ease-in-out;
+}
+
+.btn-outline-primary {
+    border-color: #1e3c72;
+    color: #f8f8f8;
+}
+
+.btn-outline-primary:hover {
+    background-color: #b12626;
+    color: white;
+    transform: scale(1.05);
+    transition: all 0.1s ease-in-out;
+}

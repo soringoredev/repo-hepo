@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Clients Manager</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/styles2.css">
+
+    <script>
+        function openNotesModal(button) {
+            const clientId = button.getAttribute("data-client-id");
+            fetch(`/clients/notes/fragment?id=${clientId}`)
+                .then(response => response.text())
+                .then(html => {
+                    document.getElementById("notes-content").innerHTML = html;
+                    new bootstrap.Modal(document.getElementById('notesModal')).show();
+                });
+        }
+    </script>
+
+    <style>
+        #notes-content {
+            color: #333; /* sau orice culoare personală */
+            font-size: 1rem;
+        }
+    </style>
+
+
+
+
+</head>
+
+<!-- Modal pentru Notițe -->
+<div class="modal fade" id="notesModal" tabindex="-1" aria-labelledby="notesModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-dark" id="notesModalLabel">Client Notes</h5>
+
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div id="notes-content">Loading...</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<body>
+
+<div class="container my-5 p-4 shadow-lg rounded">
+    <div class="position-relative">
+        <a class="btn bg-dark position-absolute top-0 start-0" href="/" style="margin-top: 5px; color: white">
+            <i class="bi bi-house-door"></i> Home
+        </a>
+    </div>
+
+    <h1 class="text-center">List of Clients</h1>
+
+    <!-- Search Form -->
+    <form th:action="@{/clients/search}" method="get" class="d-flex mb-4">
+        <input class="form-control me-2" type="text" name="keyword" placeholder="Search by name, surname, email" aria-label="Search"/>
+        <button class="btn btn-outline-primary" type="submit">Search</button>
+    </form>
+
+    <div class="d-flex justify-content-between mb-3">
+        <!-- Butonul din stânga -->
+        <a class="btn btn-primary shadow" th:href="@{/clients/create}">
+            <i class="bi bi-person-plus"></i> Add New Client
+        </a>
+
+        <!-- Butonul din dreapta -->
+        <a th:href="@{/clients/export/excel}" class="btn btn-success shadow">
+            <i class="bi bi-file-earmark-excel"></i> Export Excel
+        </a>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-hover text-center align-middle">
+            <thead class="table-primary">
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Address</th>
+                <th>Status</th>
+                <th>Created At</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody class="table-group-divider">
+            <tr th:each="client : ${clients}">
+                <td th:text="${client.id}"></td>
+                <td th:text="@{${client.firstName} + ' ' + ${client.lastName}}"></td>
+                <td th:text="${client.email}"></td>
+                <td th:text="${client.phone}"></td>
+                <td th:text="${client.address}"></td>
+                <td>
+                    <span th:classappend="
+                        ${client.status == 'Permanent'} ? 'badge bg-success' :
+                          (${client.status == 'Lead'} ? 'badge bg-warning' :
+                            (${client.status == 'New'} ? 'badge bg-info' :
+                              (${client.status == 'Inactive'} ? 'badge bg-danger' :
+                                (${client.status == 'Occasional'} ? 'badge bg-secondary'))))"
+                          class="badge" th:text="${client.status}"></span>
+                </td>
+                <td th:text="${client.createdAt.toString().substring(0, 10)}"></td>
+                <td class="d-flex justify-content-center gap-2">
+
+
+                    <a class="btn btn-danger btn-sm shadow px-2 py-2"
+                       href="#"
+                       th:attr="data-client-id=${client.id}"
+                       onclick="openNotesModal(this)">
+                        <i class="bi bi-journal-text"></i> Notes
+                    </a>
+
+
+
+                    <a class="btn btn-primary btn-sm shadow px-3 py-2 " th:href="@{/clients/edit(id=${client.id})}">
+                        <i class="bi bi-pencil-square"></i> Edit
+                    </a>
+                    <a class="btn btn-danger btn-sm shadow px-2 py-2 " th:href="@{/clients/delete(id=${client.id})}"
+                       onclick="return confirm('Are you sure?')">
+                        <i class="bi bi-trash"></i> Delete
+                    </a>
+
+
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
